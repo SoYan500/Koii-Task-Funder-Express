@@ -32,15 +32,15 @@ app.get('/ironman', (req, res) => res.json(heroData['ironman']));
 app.get('/captainamerica', (req, res) => res.json(heroData['captainamerica']));
 
 // Dynamic hero route
-app.get('/hero/:heroName', (req, res) => {
-  const heroName = req.params.heroName.toLowerCase();
+app.get('/hero/:heroName?', (req, res) => {
+  const heroName = req.params.heroName;
   
   if (!heroName) {
     return res.status(400).json({ error: 'Invalid hero name' });
   }
 
   const hero = Object.entries(heroData).find(
-    ([key, value]) => key.toLowerCase() === heroName
+    ([key, value]) => key.toLowerCase() === heroName.toLowerCase()
   );
 
   if (hero) {
